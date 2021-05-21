@@ -32,7 +32,7 @@ namespace Sistema_de_Presença_Corporativo
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.btnminimizar = new System.Windows.Forms.PictureBox();
             this.btnfechar = new System.Windows.Forms.PictureBox();
-            this.criarconta = new System.Windows.Forms.Label();
+            this.esqueceu = new System.Windows.Forms.Label();
             this.btnlimpar = new System.Windows.Forms.Button();
             this.checkMostrarsenha = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -69,17 +69,18 @@ namespace Sistema_de_Presença_Corporativo
             this.btnfechar.TabStop = false;
             this.btnfechar.Click += new System.EventHandler(this.btnfechar_Click);
             // 
-            // criarconta
+            // esqueceu
             // 
-            this.criarconta.AutoSize = true;
-            this.criarconta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.criarconta.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.criarconta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(42)))), ((int)(((byte)(104)))));
-            this.criarconta.Location = new System.Drawing.Point(118, 490);
-            this.criarconta.Name = "criarconta";
-            this.criarconta.Size = new System.Drawing.Size(119, 17);
-            this.criarconta.TabIndex = 19;
-            this.criarconta.Text = "Esqueceu a Senha?";
+            this.esqueceu.AutoSize = true;
+            this.esqueceu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.esqueceu.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.esqueceu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(42)))), ((int)(((byte)(104)))));
+            this.esqueceu.Location = new System.Drawing.Point(118, 490);
+            this.esqueceu.Name = "esqueceu";
+            this.esqueceu.Size = new System.Drawing.Size(119, 17);
+            this.esqueceu.TabIndex = 19;
+            this.esqueceu.Text = "Esqueceu a Senha?";
+            this.esqueceu.Click += new System.EventHandler(this.esqueceu_Click);
             // 
             // btnlimpar
             // 
@@ -187,7 +188,7 @@ namespace Sistema_de_Presença_Corporativo
             this.ClientSize = new System.Drawing.Size(285, 544);
             this.Controls.Add(this.btnminimizar);
             this.Controls.Add(this.btnfechar);
-            this.Controls.Add(this.criarconta);
+            this.Controls.Add(this.esqueceu);
             this.Controls.Add(this.btnlimpar);
             this.Controls.Add(this.checkMostrarsenha);
             this.Controls.Add(this.button1);
@@ -216,7 +217,7 @@ namespace Sistema_de_Presença_Corporativo
 
         private System.Windows.Forms.PictureBox btnminimizar;
         private System.Windows.Forms.PictureBox btnfechar;
-        private System.Windows.Forms.Label criarconta;
+        private System.Windows.Forms.Label esqueceu;
         private System.Windows.Forms.Button btnlimpar;
         private System.Windows.Forms.CheckBox checkMostrarsenha;
         private System.Windows.Forms.Button button1;

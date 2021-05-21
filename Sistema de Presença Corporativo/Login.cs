@@ -124,5 +124,10 @@ namespace Sistema_de_Presença_Corporativo
                 { e.Handled = true;}
             }
         }
+
+        private void esqueceu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

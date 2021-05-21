@@ -164,6 +164,11 @@ namespace Sistema_de_Presença_Corporativo.Controle
         }
         public void insertAdmin(string username, string senha, string nome, string apelido, string endereco, int sexo, float salario, int telefone)
         {
+            table.categorias();
+            table.funcionarios();
+            table.login();
+            table.presenca();
+            table.justificativa();
             if (this.checkLogAdmin() == false)
             {
                 this.insertCatAdmin();
@@ -174,29 +179,10 @@ namespace Sistema_de_Presença_Corporativo.Controle
         }
         public void checkTable()
         {
-            if (this.check("Categorias") == 0)
+            if (this.check("Categorias") == 0 && this.check("Funcionarios") == 0 && this.check("Login") == 0 && this.check("Presenca") == 0 && this.check("Justificativa") == 0)
             {
-                table.categorias();
-
-            }
-            if (this.check("Funcionarios") == 0)
-            {
-                table.funcionarios();
-            }
-            if (this.check("Login") == 0)
-            {
-                table.login();
                 Config conf = new Config();
                 conf.ShowDialog();
-                
-            }
-            if (this.check("Presenca") == 0)
-            {
-                table.presenca();
-            }
-            if (this.check("Justificativa") == 0)
-            {
-                table.justificativa();
             }
         }
         
