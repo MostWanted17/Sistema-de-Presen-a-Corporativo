@@ -116,5 +116,51 @@ namespace Sistema_de_Presença_Corporativo
         {
             pictureBox4.BackColor = Color.Transparent;
         }
+
+        private void login_pukToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.loginTableAdapter.login_puk(this.bdpresencaDataSet.Login);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void fillByToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.loginTableAdapter.FillBy(this.bdpresencaDataSet.Login);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void Credencial_Load_1(object sender, EventArgs e)
+        {
+            // TODO: esta linha de código carrega dados na tabela 'bdpresencaDataSet1.Login'. Você pode movê-la ou removê-la conforme necessário.
+            this.loginTableAdapter.Fill(this.bdpresencaDataSet1.Login);
+
+        }
+
+        private void fillBy1ToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.loginTableAdapter.FillBy1(this.bdpresencaDataSet.Login);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

@@ -158,6 +158,12 @@
     <Compile Include="Inputs\EditFunc.Designer.cs">
       <DependentUpon>EditFunc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inputs\EsqueceuSenha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inputs\EsqueceuSenha.Designer.cs">
+      <DependentUpon>EsqueceuSenha.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inputs\MesAno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inputs\EditFunc.resx">
       <DependentUpon>EditFunc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inputs\EsqueceuSenha.resx">
+      <DependentUpon>EsqueceuSenha.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inputs\MesAno.resx">
       <DependentUpon>MesAno.cs</DependentUpon>

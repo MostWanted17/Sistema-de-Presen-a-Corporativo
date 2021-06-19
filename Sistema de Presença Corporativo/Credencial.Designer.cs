@@ -38,32 +38,39 @@ namespace Sistema_de_Presença_Corporativo
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.idloginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idfuncionarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.senhaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.loginBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.loginBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             this.bdpresencaDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bdpresencaDataSet = new Sistema_de_Presença_Corporativo.bdpresencaDataSet();
+            this.loginBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.bdpresencaDataSet1 = new Sistema_de_Presença_Corporativo.bdpresencaDataSet();
             this.loginBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.loginBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.loginTableAdapter = new Sistema_de_Presença_Corporativo.bdpresencaDataSetTableAdapters.LoginTableAdapter();
             this.funcionariosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.funcionariosTableAdapter = new Sistema_de_Presença_Corporativo.bdpresencaDataSetTableAdapters.FuncionariosTableAdapter();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
+            this.idloginDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idfuncionarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pukDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.senhaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource2)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionariosBindingSource)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -125,10 +132,11 @@ namespace Sistema_de_Presença_Corporativo
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idloginDataGridViewTextBoxColumn,
-            this.idfuncionarioDataGridViewTextBoxColumn,
             this.usernameDataGridViewTextBoxColumn,
+            this.idfuncionarioDataGridViewTextBoxColumn,
+            this.pukDataGridViewTextBoxColumn,
             this.senhaDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.loginBindingSource2;
+            this.dataGridView1.DataSource = this.loginBindingSource4;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Nirmala UI", 9.75F);
@@ -160,73 +168,10 @@ namespace Sistema_de_Presença_Corporativo
             this.dataGridView1.Size = new System.Drawing.Size(438, 370);
             this.dataGridView1.TabIndex = 19;
             // 
-            // idloginDataGridViewTextBoxColumn
-            // 
-            this.idloginDataGridViewTextBoxColumn.DataPropertyName = "id_login";
-            this.idloginDataGridViewTextBoxColumn.HeaderText = "id_login";
-            this.idloginDataGridViewTextBoxColumn.Name = "idloginDataGridViewTextBoxColumn";
-            this.idloginDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // idfuncionarioDataGridViewTextBoxColumn
-            // 
-            this.idfuncionarioDataGridViewTextBoxColumn.DataPropertyName = "id_funcionario";
-            this.idfuncionarioDataGridViewTextBoxColumn.HeaderText = "id_funcionario";
-            this.idfuncionarioDataGridViewTextBoxColumn.Name = "idfuncionarioDataGridViewTextBoxColumn";
-            this.idfuncionarioDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // usernameDataGridViewTextBoxColumn
-            // 
-            this.usernameDataGridViewTextBoxColumn.DataPropertyName = "username";
-            this.usernameDataGridViewTextBoxColumn.HeaderText = "username";
-            this.usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
-            this.usernameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.usernameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // senhaDataGridViewTextBoxColumn
-            // 
-            this.senhaDataGridViewTextBoxColumn.DataPropertyName = "senha";
-            this.senhaDataGridViewTextBoxColumn.HeaderText = "senha";
-            this.senhaDataGridViewTextBoxColumn.Name = "senhaDataGridViewTextBoxColumn";
-            this.senhaDataGridViewTextBoxColumn.ReadOnly = true;
-            this.senhaDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // loginBindingSource2
             // 
             this.loginBindingSource2.DataMember = "Login";
             this.loginBindingSource2.DataSource = this.bdpresencaDataSetBindingSource;
-            // 
-            // bdpresencaDataSetBindingSource
-            // 
-            this.bdpresencaDataSetBindingSource.DataSource = this.bdpresencaDataSet;
-            this.bdpresencaDataSetBindingSource.Position = 0;
-            // 
-            // bdpresencaDataSet
-            // 
-            this.bdpresencaDataSet.DataSetName = "bdpresencaDataSet";
-            this.bdpresencaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // loginBindingSource
-            // 
-            this.loginBindingSource.DataMember = "Login";
-            this.loginBindingSource.DataSource = this.bdpresencaDataSet;
-            // 
-            // loginBindingSource1
-            // 
-            this.loginBindingSource1.DataMember = "Login";
-            this.loginBindingSource1.DataSource = this.bdpresencaDataSet;
-            // 
-            // loginTableAdapter
-            // 
-            this.loginTableAdapter.ClearBeforeFill = true;
-            // 
-            // funcionariosBindingSource
-            // 
-            this.funcionariosBindingSource.DataMember = "Funcionarios";
-            this.funcionariosBindingSource.DataSource = this.bdpresencaDataSet;
-            // 
-            // funcionariosTableAdapter
-            // 
-            this.funcionariosTableAdapter.ClearBeforeFill = true;
             // 
             // panel1
             // 
@@ -284,6 +229,89 @@ namespace Sistema_de_Presença_Corporativo
             this.btnEditar.UseVisualStyleBackColor = false;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
+            // loginBindingSource4
+            // 
+            this.loginBindingSource4.DataMember = "Login";
+            this.loginBindingSource4.DataSource = this.bdpresencaDataSetBindingSource;
+            // 
+            // bdpresencaDataSetBindingSource
+            // 
+            this.bdpresencaDataSetBindingSource.DataSource = this.bdpresencaDataSet;
+            this.bdpresencaDataSetBindingSource.Position = 0;
+            // 
+            // bdpresencaDataSet
+            // 
+            this.bdpresencaDataSet.DataSetName = "bdpresencaDataSet";
+            this.bdpresencaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // loginBindingSource3
+            // 
+            this.loginBindingSource3.DataMember = "Login";
+            this.loginBindingSource3.DataSource = this.bdpresencaDataSet1;
+            // 
+            // bdpresencaDataSet1
+            // 
+            this.bdpresencaDataSet1.DataSetName = "bdpresencaDataSet";
+            this.bdpresencaDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // loginBindingSource
+            // 
+            this.loginBindingSource.DataMember = "Login";
+            this.loginBindingSource.DataSource = this.bdpresencaDataSet;
+            // 
+            // loginBindingSource1
+            // 
+            this.loginBindingSource1.DataMember = "Login";
+            this.loginBindingSource1.DataSource = this.bdpresencaDataSet;
+            // 
+            // loginTableAdapter
+            // 
+            this.loginTableAdapter.ClearBeforeFill = true;
+            // 
+            // funcionariosBindingSource
+            // 
+            this.funcionariosBindingSource.DataMember = "Funcionarios";
+            this.funcionariosBindingSource.DataSource = this.bdpresencaDataSet;
+            // 
+            // funcionariosTableAdapter
+            // 
+            this.funcionariosTableAdapter.ClearBeforeFill = true;
+            // 
+            // idloginDataGridViewTextBoxColumn
+            // 
+            this.idloginDataGridViewTextBoxColumn.DataPropertyName = "id_login";
+            this.idloginDataGridViewTextBoxColumn.HeaderText = "id_login";
+            this.idloginDataGridViewTextBoxColumn.Name = "idloginDataGridViewTextBoxColumn";
+            this.idloginDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // usernameDataGridViewTextBoxColumn
+            // 
+            this.usernameDataGridViewTextBoxColumn.DataPropertyName = "username";
+            this.usernameDataGridViewTextBoxColumn.HeaderText = "username";
+            this.usernameDataGridViewTextBoxColumn.Name = "usernameDataGridViewTextBoxColumn";
+            this.usernameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // idfuncionarioDataGridViewTextBoxColumn
+            // 
+            this.idfuncionarioDataGridViewTextBoxColumn.DataPropertyName = "id_funcionario";
+            this.idfuncionarioDataGridViewTextBoxColumn.HeaderText = "id_funcionario";
+            this.idfuncionarioDataGridViewTextBoxColumn.Name = "idfuncionarioDataGridViewTextBoxColumn";
+            this.idfuncionarioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pukDataGridViewTextBoxColumn
+            // 
+            this.pukDataGridViewTextBoxColumn.DataPropertyName = "puk";
+            this.pukDataGridViewTextBoxColumn.HeaderText = "puk";
+            this.pukDataGridViewTextBoxColumn.Name = "pukDataGridViewTextBoxColumn";
+            this.pukDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // senhaDataGridViewTextBoxColumn
+            // 
+            this.senhaDataGridViewTextBoxColumn.DataPropertyName = "senha";
+            this.senhaDataGridViewTextBoxColumn.HeaderText = "senha";
+            this.senhaDataGridViewTextBoxColumn.Name = "senhaDataGridViewTextBoxColumn";
+            this.senhaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // Credencial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,17 +326,21 @@ namespace Sistema_de_Presença_Corporativo
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Credencial";
             this.Activated += new System.EventHandler(this.Credencial_Load);
+            this.Load += new System.EventHandler(this.Credencial_Load_1);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdpresencaDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionariosBindingSource)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -326,14 +358,18 @@ namespace Sistema_de_Presença_Corporativo
         private bdpresencaDataSetTableAdapters.FuncionariosTableAdapter funcionariosTableAdapter;
         private System.Windows.Forms.BindingSource loginBindingSource2;
         private System.Windows.Forms.BindingSource bdpresencaDataSetBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idloginDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idfuncionarioDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn senhaDataGridViewTextBoxColumn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private bdpresencaDataSet bdpresencaDataSet1;
+        private System.Windows.Forms.BindingSource loginBindingSource3;
+        private System.Windows.Forms.BindingSource loginBindingSource4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idloginDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idfuncionarioDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pukDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn senhaDataGridViewTextBoxColumn;
     }
 }

@@ -141,11 +141,15 @@ namespace Sistema_de_Presença_Corporativo.Controle
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.bdpresencaConnectionString))
             {
-                const string sql = "Insert into Login (username, senha, id_funcionario)values(@username,@senha,1); ";
+                Puk puk = new Puk();
+                int puk_numb = puk.gerar();
+                const string sql = "Insert into Login (username, senha, id_funcionario, puk)values(@username,@senha,1,@puk);";
                 using (SqlCommand sqlCommand = new SqlCommand(sql, conn))
                 {
                     sqlCommand.Parameters.AddWithValue("@username", username);
                     sqlCommand.Parameters.AddWithValue("@senha", senha);
+                    sqlCommand.Parameters.AddWithValue("@puk", puk_numb);
+                    
                     try
                     {
                         conn.Open();

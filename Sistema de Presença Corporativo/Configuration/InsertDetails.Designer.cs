@@ -236,7 +236,6 @@ namespace Sistema_de_Presença_Corporativo.Configuration
             this.textBox1.PasswordChar = '*';
             this.textBox1.Size = new System.Drawing.Size(216, 28);
             this.textBox1.TabIndex = 47;
-            this.textBox1.UseSystemPasswordChar = true;
             // 
             // label5
             // 

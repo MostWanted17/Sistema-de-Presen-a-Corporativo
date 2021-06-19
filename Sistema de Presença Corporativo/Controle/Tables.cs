@@ -62,7 +62,7 @@ namespace Sistema_de_Presença_Corporativo.Controle
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.bdpresencaConnectionString))
             {
-                const string sql = "CREATE TABLE [dbo].[Login] ([id_login] INT IDENTITY(1, 1) NOT NULL, [username] VARCHAR(40) NOT NULL,[senha] VARCHAR(40) NOT NULL, [id_funcionario] INT NOT NULL, PRIMARY KEY CLUSTERED([id_login] ASC), CONSTRAINT[FK_funcionario] FOREIGN KEY([id_funcionario]) REFERENCES[dbo].[Funcionarios]([id_funcionario]) ON DELETE CASCADE ON UPDATE CASCADE);";
+                const string sql = "CREATE TABLE [dbo].[Login] ([id_login] INT IDENTITY(1, 1) NOT NULL, [username] VARCHAR(40) NOT NULL,[senha] VARCHAR(40) NOT NULL, [id_funcionario] INT NOT NULL, [puk] INT NOT NULL, PRIMARY KEY CLUSTERED([id_login] ASC), CONSTRAINT[FK_funcionario] FOREIGN KEY([id_funcionario]) REFERENCES[dbo].[Funcionarios]([id_funcionario]) ON DELETE CASCADE ON UPDATE CASCADE);";
                 using (SqlCommand sqlCommand = new SqlCommand(sql, conn))
                 {
                     try

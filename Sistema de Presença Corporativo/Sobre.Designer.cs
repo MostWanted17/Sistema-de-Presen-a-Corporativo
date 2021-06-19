@@ -118,7 +118,7 @@ namespace Sistema_de_Presença_Corporativo
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(6, 121);
+            this.label5.Location = new System.Drawing.Point(119, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(216, 21);
             this.label5.TabIndex = 20;
@@ -129,7 +129,7 @@ namespace Sistema_de_Presença_Corporativo
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(508, 162);
+            this.ClientSize = new System.Drawing.Size(508, 230);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

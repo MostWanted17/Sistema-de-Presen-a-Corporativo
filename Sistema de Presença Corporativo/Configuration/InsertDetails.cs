@@ -43,7 +43,7 @@ namespace Sistema_de_Presença_Corporativo.Configuration
             DialogResult dialogResult = MessageBox.Show("Deseja Cancelar a Configuração?", "Cancelar", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                this.Close();
+                Application.Exit();
             }
         }
 

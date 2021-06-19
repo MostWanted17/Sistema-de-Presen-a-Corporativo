@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using Sistema_de_Presença_Corporativo.Controle;
 using System.Runtime.InteropServices;
+using Sistema_de_Presença_Corporativo.Inputs;
 
 namespace Sistema_de_Presença_Corporativo
 {
@@ -127,7 +128,8 @@ namespace Sistema_de_Presença_Corporativo
 
         private void esqueceu_Click(object sender, EventArgs e)
         {
-
+            EsqueceuSenha esq = new EsqueceuSenha();
+            esq.ShowDialog();
         }
     }
 }

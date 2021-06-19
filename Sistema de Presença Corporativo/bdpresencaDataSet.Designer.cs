@@ -40,6 +40,8 @@ namespace Sistema_de_Presença_Corporativo {
         
         private global::System.Data.DataRelation relationFk_funcionario_status;
         
+        private global::System.Data.DataRelation relationFK_Justificativa;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -299,6 +301,7 @@ namespace Sistema_de_Presença_Corporativo {
             this.relationFK_categoria = this.Relations["FK_categoria"];
             this.relationFK_funcionario = this.Relations["FK_funcionario"];
             this.relationFk_funcionario_status = this.Relations["Fk_funcionario_status"];
+            this.relationFK_Justificativa = this.Relations["FK_Justificativa"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -331,6 +334,10 @@ namespace Sistema_de_Presença_Corporativo {
                         this.tableFuncionarios.id_funcionarioColumn}, new global::System.Data.DataColumn[] {
                         this.tablePresenca.id_funcionarioColumn}, false);
             this.Relations.Add(this.relationFk_funcionario_status);
+            this.relationFK_Justificativa = new global::System.Data.DataRelation("FK_Justificativa", new global::System.Data.DataColumn[] {
+                        this.tablePresenca.id_presencaColumn}, new global::System.Data.DataColumn[] {
+                        this.tableJustificativa.id_faltaColumn}, false);
+            this.Relations.Add(this.relationFK_Justificativa);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1189,12 +1196,15 @@ namespace Sistema_de_Presença_Corporativo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public JustificativaRow AddJustificativaRow(int id_falta, string motivo) {
+            public JustificativaRow AddJustificativaRow(PresencaRow parentPresencaRowByFK_Justificativa, string motivo) {
                 JustificativaRow rowJustificativaRow = ((JustificativaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        id_falta,
+                        null,
                         motivo};
+                if ((parentPresencaRowByFK_Justificativa != null)) {
+                    columnValuesArray[1] = parentPresencaRowByFK_Justificativa[0];
+                }
                 rowJustificativaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowJustificativaRow);
                 return rowJustificativaRow;
@@ -1386,9 +1396,11 @@ namespace Sistema_de_Presença_Corporativo {
             
             private global::System.Data.DataColumn columnusername;
             
-            private global::System.Data.DataColumn columnsenha;
-            
             private global::System.Data.DataColumn columnid_funcionario;
+            
+            private global::System.Data.DataColumn columnpuk;
+            
+            private global::System.Data.DataColumn columnsenha;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1441,17 +1453,25 @@ namespace Sistema_de_Presença_Corporativo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn senhaColumn {
+            public global::System.Data.DataColumn id_funcionarioColumn {
                 get {
-                    return this.columnsenha;
+                    return this.columnid_funcionario;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn id_funcionarioColumn {
+            public global::System.Data.DataColumn pukColumn {
                 get {
-                    return this.columnid_funcionario;
+                    return this.columnpuk;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn senhaColumn {
+                get {
+                    return this.columnsenha;
                 }
             }
             
@@ -1492,15 +1512,16 @@ namespace Sistema_de_Presença_Corporativo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public LoginRow AddLoginRow(string username, string senha, FuncionariosRow parentFuncionariosRowByFK_funcionario) {
+            public LoginRow AddLoginRow(string username, FuncionariosRow parentFuncionariosRowByFK_funcionario, int puk, string senha) {
                 LoginRow rowLoginRow = ((LoginRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         username,
-                        senha,
-                        null};
+                        null,
+                        puk,
+                        senha};
                 if ((parentFuncionariosRowByFK_funcionario != null)) {
-                    columnValuesArray[3] = parentFuncionariosRowByFK_funcionario[0];
+                    columnValuesArray[2] = parentFuncionariosRowByFK_funcionario[0];
                 }
                 rowLoginRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLoginRow);
@@ -1533,8 +1554,9 @@ namespace Sistema_de_Presença_Corporativo {
             internal void InitVars() {
                 this.columnid_login = base.Columns["id_login"];
                 this.columnusername = base.Columns["username"];
-                this.columnsenha = base.Columns["senha"];
                 this.columnid_funcionario = base.Columns["id_funcionario"];
+                this.columnpuk = base.Columns["puk"];
+                this.columnsenha = base.Columns["senha"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1544,10 +1566,12 @@ namespace Sistema_de_Presença_Corporativo {
                 base.Columns.Add(this.columnid_login);
                 this.columnusername = new global::System.Data.DataColumn("username", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnusername);
-                this.columnsenha = new global::System.Data.DataColumn("senha", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsenha);
                 this.columnid_funcionario = new global::System.Data.DataColumn("id_funcionario", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid_funcionario);
+                this.columnpuk = new global::System.Data.DataColumn("puk", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpuk);
+                this.columnsenha = new global::System.Data.DataColumn("senha", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsenha);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid_login}, true));
                 this.columnid_login.AutoIncrement = true;
@@ -1558,9 +1582,10 @@ namespace Sistema_de_Presença_Corporativo {
                 this.columnid_login.Unique = true;
                 this.columnusername.AllowDBNull = false;
                 this.columnusername.MaxLength = 40;
+                this.columnid_funcionario.AllowDBNull = false;
+                this.columnpuk.AllowDBNull = false;
                 this.columnsenha.AllowDBNull = false;
                 this.columnsenha.MaxLength = 40;
-                this.columnid_funcionario.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2261,6 +2286,17 @@ namespace Sistema_de_Presença_Corporativo {
                     this[this.tableJustificativa.motivoColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public PresencaRow PresencaRow {
+                get {
+                    return ((PresencaRow)(this.GetParentRow(this.Table.ParentRelations["FK_Justificativa"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Justificativa"]);
+                }
+            }
         }
         
         /// <summary>
@@ -2301,23 +2337,34 @@ namespace Sistema_de_Presença_Corporativo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string senha {
-                get {
-                    return ((string)(this[this.tableLogin.senhaColumn]));
-                }
-                set {
-                    this[this.tableLogin.senhaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int id_funcionario {
                 get {
                     return ((int)(this[this.tableLogin.id_funcionarioColumn]));
                 }
                 set {
                     this[this.tableLogin.id_funcionarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int puk {
+                get {
+                    return ((int)(this[this.tableLogin.pukColumn]));
+                }
+                set {
+                    this[this.tableLogin.pukColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string senha {
+                get {
+                    return ((string)(this[this.tableLogin.senhaColumn]));
+                }
+                set {
+                    this[this.tableLogin.senhaColumn] = value;
                 }
             }
             
@@ -2399,6 +2446,17 @@ namespace Sistema_de_Presença_Corporativo {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Fk_funcionario_status"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public JustificativaRow[] GetJustificativaRows() {
+                if ((this.Table.ChildRelations["FK_Justificativa"] == null)) {
+                    return new JustificativaRow[0];
+                }
+                else {
+                    return ((JustificativaRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Justificativa"])));
                 }
             }
         }
@@ -3786,40 +3844,44 @@ SELECT id_justificativa, id_falta, motivo FROM Justificativa WHERE (id_justifica
             tableMapping.DataSetTable = "Login";
             tableMapping.ColumnMappings.Add("id_login", "id_login");
             tableMapping.ColumnMappings.Add("username", "username");
-            tableMapping.ColumnMappings.Add("senha", "senha");
             tableMapping.ColumnMappings.Add("id_funcionario", "id_funcionario");
+            tableMapping.ColumnMappings.Add("puk", "puk");
+            tableMapping.ColumnMappings.Add("senha", "senha");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Login] WHERE (([id_login] = @Original_id_login) AND ([username" +
-                "] = @Original_username) AND ([senha] = @Original_senha) AND ([id_funcionario] = " +
-                "@Original_id_funcionario))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Login] WHERE (([id_login] = @Original_id_login) AND ([username] = @O" +
+                "riginal_username) AND ([id_funcionario] = @Original_id_funcionario) AND ([puk] =" +
+                " @Original_puk) AND ([senha] = @Original_senha))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_login", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_login", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_funcionario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_funcionario", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_puk", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "puk", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Login] ([username], [senha], [id_funcionario]) VALUES (@userna" +
-                "me, @senha, @id_funcionario);\r\nSELECT id_login, username, senha, id_funcionario " +
-                "FROM Login WHERE (id_login = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Login] ([username], [id_funcionario], [puk]) VALUES (@username, @id_" +
+                "funcionario, @puk);\r\nSELECT id_login, username, id_funcionario, puk FROM Login W" +
+                "HERE (id_login = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_funcionario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_funcionario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@puk", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "puk", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Login] SET [username] = @username, [senha] = @senha, [id_funcionario] = @id_funcionario WHERE (([id_login] = @Original_id_login) AND ([username] = @Original_username) AND ([senha] = @Original_senha) AND ([id_funcionario] = @Original_id_funcionario));
-SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @id_login)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Login] SET [username] = @username, [id_funcionario] = @id_funcionario, [puk] = @puk, [senha] = @senha WHERE (([id_login] = @Original_id_login) AND ([username] = @Original_username) AND ([id_funcionario] = @Original_id_funcionario) AND ([puk] = @Original_puk) AND ([senha] = @Original_senha));
+SELECT id_login, username, id_funcionario, puk, senha FROM Login WHERE (id_login = @id_login)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_funcionario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_funcionario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@puk", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "puk", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_login", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_login", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_funcionario", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_funcionario", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_puk", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "puk", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_senha", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "senha", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_login", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id_login", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -3833,11 +3895,25 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id_login, username, senha, id_funcionario FROM dbo.Login";
+            this._commandCollection[0].CommandText = "SELECT        id_login, username, id_funcionario, puk, senha\r\nFROM            Log" +
+                "in";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT id_funcionario, id_login, puk, senha, username FROM Login";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT        id_login, username, id_funcionario, puk, senha\r\nFROM            Log" +
+                "in";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT id_funcionario, id_login, puk, senha, username FROM Login";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3862,6 +3938,45 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
             bdpresencaDataSet.LoginDataTable dataTable = new bdpresencaDataSet.LoginDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(bdpresencaDataSet.LoginDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy1(bdpresencaDataSet.LoginDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int login_puk(bdpresencaDataSet.LoginDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3897,7 +4012,7 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_id_login, string Original_username, string Original_senha, int Original_id_funcionario) {
+        public virtual int Delete(int Original_id_login, string Original_username, int Original_id_funcionario, int Original_puk, string Original_senha) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_id_login));
             if ((Original_username == null)) {
                 throw new global::System.ArgumentNullException("Original_username");
@@ -3905,13 +4020,14 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_username));
             }
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_id_funcionario));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_puk));
             if ((Original_senha == null)) {
                 throw new global::System.ArgumentNullException("Original_senha");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_senha));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_senha));
             }
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_id_funcionario));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3932,20 +4048,15 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string username, string senha, int id_funcionario) {
+        public virtual int Insert(string username, int id_funcionario, int puk) {
             if ((username == null)) {
                 throw new global::System.ArgumentNullException("username");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(username));
             }
-            if ((senha == null)) {
-                throw new global::System.ArgumentNullException("senha");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(senha));
-            }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(id_funcionario));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(id_funcionario));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(puk));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3966,35 +4077,37 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string username, string senha, int id_funcionario, int Original_id_login, string Original_username, string Original_senha, int Original_id_funcionario, int id_login) {
+        public virtual int Update(string username, int id_funcionario, int puk, string senha, int Original_id_login, string Original_username, int Original_id_funcionario, int Original_puk, string Original_senha, int id_login) {
             if ((username == null)) {
                 throw new global::System.ArgumentNullException("username");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(username));
             }
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(id_funcionario));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(puk));
             if ((senha == null)) {
                 throw new global::System.ArgumentNullException("senha");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(senha));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(senha));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(id_funcionario));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_id_login));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_id_login));
             if ((Original_username == null)) {
                 throw new global::System.ArgumentNullException("Original_username");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_username));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_username));
             }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_id_funcionario));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_puk));
             if ((Original_senha == null)) {
                 throw new global::System.ArgumentNullException("Original_senha");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_senha));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_senha));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_id_funcionario));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(id_login));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(id_login));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4015,8 +4128,8 @@ SELECT id_login, username, senha, id_funcionario FROM Login WHERE (id_login = @i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string username, string senha, int id_funcionario, int Original_id_login, string Original_username, string Original_senha, int Original_id_funcionario) {
-            return this.Update(username, senha, id_funcionario, Original_id_login, Original_username, Original_senha, Original_id_funcionario, Original_id_login);
+        public virtual int Update(string username, int id_funcionario, int puk, string senha, int Original_id_login, string Original_username, int Original_id_funcionario, int Original_puk, string Original_senha) {
+            return this.Update(username, id_funcionario, puk, senha, Original_id_login, Original_username, Original_id_funcionario, Original_puk, Original_senha, Original_id_login);
         }
     }
     
@@ -4540,6 +4653,15 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._presencaTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._presencaTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._justificativaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Justificativa.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -4555,15 +4677,6 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._loginTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._presencaTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._presencaTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -4593,6 +4706,14 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._presencaTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._presencaTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._justificativaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Justificativa.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -4609,14 +4730,6 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._presencaTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._presencaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -4627,14 +4740,6 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(bdpresencaDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._presencaTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._presencaTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._loginTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Login.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -4648,6 +4753,14 @@ SELECT id_presenca, id_funcionario, status, data FROM Presenca WHERE (id_presenc
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._justificativaTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._presencaTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Presenca.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._presencaTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
