@@ -56,6 +56,7 @@ namespace Sistema_de_Presença_Corporativo.Inputs
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(276, 38);
             this.panel2.TabIndex = 34;
+            this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
             // 
             // pictureBox4
             // 
@@ -69,6 +70,7 @@ namespace Sistema_de_Presença_Corporativo.Inputs
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 7;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // label1
             // 
@@ -219,6 +221,7 @@ namespace Sistema_de_Presença_Corporativo.Inputs
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EsqueceuSenha";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EsqueceuSenha";
             this.Load += new System.EventHandler(this.EsqueceuSenha_Load);
             this.panel2.ResumeLayout(false);
